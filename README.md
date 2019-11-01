@@ -50,6 +50,8 @@ An API can and should return a success message and a status code of 200 or 201 l
 
 
 - [ ] How can we partition our application into sub-applications?
+ANS:
+Modules provide structure to bigger programs by separating the code into pieces with clear interfaces and dependencies. The interface is the part of the module that’s visible from other modules, and the dependencies are the other modules that it makes use of.
 
 ## Project Setup
 
