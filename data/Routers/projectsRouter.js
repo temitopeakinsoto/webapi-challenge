@@ -50,6 +50,20 @@ router.get("/", (req, res) => {
     });
 });
 
+router.get("/:id", validateProjectId, (req, res) => {
+    const id = req.params.id;
+    projectsDb
+      .get(id)
+      .then(project => {
+        res.status(200).json(project);
+      })
+      .catch(error => {
+        res.status(500).json({
+          message: `Error retrieving this particular project: ${error.message}`
+        });
+      });
+  });
+
 router.post('/', validateProjectPost, (req, res) => {
     const { name, description } = req.body;
     const newPost = {
@@ -64,8 +78,25 @@ router.post('/', validateProjectPost, (req, res) => {
             message: `There was an error creating this project post: ${error}`
         })
     })
+})
 
-    res.send(newPost);
+router.put('/:id', validateProjectId, validateProjectPost, (req, res) => {
+    const id = req.params.id;
+    const { name, description } = req.body;
+    const postToBeUpdate = {
+        name, description
+    }
+
+    projectsDb
+    .update(id, postToBeUpdate)
+    .then(() => {
+      res.status(200).json({ message: "This user has been updated" });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: `Error updating this post: ${error.message}`
+      });
+    });
 
 })
 
