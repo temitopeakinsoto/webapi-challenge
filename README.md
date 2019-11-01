@@ -26,11 +26,28 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+ANS :
+Express Routing and Express Middleware
+
 - [ ] Describe Middleware?
+
+ANS: 
+Generally speaking, a middleware refers to a piece of functionality or anything you put in the middle of one layer of the software and another. 
+Express middleware are simply functions that execute during the lifecycle of a request to the Express server. Each middleware has access to the HTTP request and response for each route (or path) it’s attached to. In express, there are three categories of middlewares:
+
+1. Custom middlewares - These are middleware we build ourselves for carrying out specific tasks and purposes 
+2. Built-in middlewares - These refer to middlewares that come shipped together with the express framework
+3. Third-party middlewares - These are middlewares built by other developers and are could be installed via NPM
 
 - [ ] Describe a Resource?
 
+ANS:
+We can think of a RESOURCE as being the target of an API/http request. It can be a document, a photo, or anything else. Everything is a resource and each resource is accessible via a unique URI. Mangement and access to a resource are done via http methods (PUT, POST, GET etc);
+
 - [ ] What can the API return to help clients know if a request was successful?
+ANS:
+An API can and should return a success message and a status code of 200 or 201 letting the user know that their request to the API was successful
+
 
 - [ ] How can we partition our application into sub-applications?
 
