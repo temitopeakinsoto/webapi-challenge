@@ -25,6 +25,7 @@ function validateProjectId(req, res, next){
     .get(id)
     .then(project => {
       if (project) {
+        req.project = project;
         next();
       } else {
         res.status(400).json({ message: "There is no project with the specified id" });

@@ -10,6 +10,7 @@ function validateActionId(req, res, next){
     .get(id)
     .then(action => {
       if (action) {
+        req.action = action;
         next();
       } else {
         res.status(400).json({ message: "There is no Action with the specified id" });
@@ -107,11 +108,6 @@ router.get("/:id", validateActionId, (req, res) => {
     })
 })
 
-
-
-
-
-
 router.put('/:id', validateActionId, validateActionPost, (req, res) => {
     const id = req.params.id;
     const { name, description, notes} = req.body;
@@ -131,11 +127,6 @@ router.put('/:id', validateActionId, validateActionPost, (req, res) => {
     });
 
 })
-
-
-
-
-
 
 router.delete('/:id', validateActionId, (req, res) => {
     const id = req.params.id;
