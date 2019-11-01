@@ -64,6 +64,20 @@ router.get("/:id", validateProjectId, (req, res) => {
       });
   });
 
+  router.get("/:id/action", validateProjectId, (req, res) => {
+    const id = req.params.id;
+    projectsDb
+      .getProjectActions(id)
+      .then(project => {
+        res.status(200).json(project);
+      })
+      .catch(error => {
+        res.status(500).json({
+          message: `Error retrieving this particular project: ${error.message}`
+        });
+      });
+  });
+
 router.post('/', validateProjectPost, (req, res) => {
     const { name, description } = req.body;
     const newPost = {
