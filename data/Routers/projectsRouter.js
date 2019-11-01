@@ -5,7 +5,7 @@ const router = express.Router();
 
 function validateProjectPost(req, res, next){
     let post = req.body;
-  if (!post || post === "undefined") {
+  if (!post) {
     res.status(400).json({ message: "missing post data" });
   } 
   else if (!post.name) {
@@ -17,6 +17,24 @@ function validateProjectPost(req, res, next){
   else {
     next();
   }
+}
+
+function validateProjectId(req, res, next){
+    const { id } =  req.params;
+    projectsDb
+    .get(id)
+    .then(project => {
+      if (project) {
+        next();
+      } else {
+        res.status(400).json({ message: "There is no project with the specified id" });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: `Something terrible happend while checking user id: ${error.message}`
+      });
+    });
 }
 
 router.get("/", (req, res) => {
@@ -48,6 +66,21 @@ router.post('/', validateProjectPost, (req, res) => {
     })
 
     res.send(newPost);
+
+})
+
+router.delete('/:id', validateProjectId, (req, res) => {
+    const id = req.params.id;
+    projectsDb
+    .remove(id)
+    .then(() => {
+      res.status(200).json({ message: "This user has been deleted" });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: `Error deleting the user: ${error.message}`
+      });
+    });
 
 })
 
