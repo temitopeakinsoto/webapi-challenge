@@ -28,7 +28,6 @@ function validateActionId(req, res, next) {
 // Create validateActionPost middleware
 function validateActionPost(req, res, next) {
   const actionPost = req.body;
-  console.log("hello, awayu", actionPost);
   if (!actionPost) {
     res.status(400).json({ message: "missing post data" });
   } else if (!actionPost.project_id) {
@@ -75,7 +74,6 @@ function validateProjectPostId(req, res, next) {
 
 //Create a GET / Endpoint
 router.get("/", (req, res) => {
-  console.log("We are here");
   actionsDb
     .get()
     .then(post => {
@@ -89,7 +87,6 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", validateActionId, (req, res) => {
-  const id = req.params.id;
   try {
     res.status(200).json(req.action)
   } catch (error) {
@@ -101,7 +98,6 @@ router.get("/:id", validateActionId, (req, res) => {
 
 router.post("/", validateActionPost, validateProjectPostId, (req, res) => {
   const { project_id, description, notes } = req.body;
-  console.log("action post", req.body);
   const newPost = {
     project_id,
     description,
